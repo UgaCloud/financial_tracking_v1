@@ -1,0 +1,11 @@
+<!-- tourism_app/templates/tourism_app/department_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Department List</h2>
+  <ul>
+    {% for department in departments %}
+      <li>{{ department.name }} - {{ department.price }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
