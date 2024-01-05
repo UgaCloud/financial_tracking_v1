@@ -1,15 +1,10 @@
-from django.shortcuts import render
-
-
-# tourism_app/views.py
 from django.shortcuts import render, redirect
+
+from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from .models import Department, Payment, Banking, Expenses, Exp_break, Request, Request_items
 from .forms import DepartmentForm, PaymentForm, BankingForm, ExpensesForm, ExpBreakForm, RequestForm, RequestItemsForm
-
-# Add CRUD views for each model (Department, Payment, Banking, Expenses, Exp_break, Request, Request_items).
-# Use the patterns from the previous example.
-
-# Example:
 
 def IndexView(request):
     return render(request, 'index.html')
@@ -33,13 +28,13 @@ def create_department_view(request):
         'form': dpt_form,
         'departments': department
     }
-    return render(request, template_name='department.html', context=context)
+    return render(request, template_name='department_details.html', context=context)
 
 
 
 
-def department_update(request, pk):
-    department = Department.objects.get(id=pk)
+def department_update(request, dpt_id):
+    department = Department.objects.get(id=dpt_id)
     form = DepartmentForm(instance=department)
 
     if request.method == 'POST':
@@ -61,9 +56,9 @@ def payment_create(request):
         if form.is_valid():
            form.save()
         return redirect('payment-list')
-
+    
     context = {'form': form}
-    return render(request, 'payment_create.html', context)
+    return render(request, 'payment.html', context)
 
 
 
@@ -82,15 +77,19 @@ def payment_update(request, pk):
 
 
 def banking_create(request):
-  form = BankingForm()
   if request.method == 'POST':
-    form = BankingForm(request.POST)
-    if form.is_valid():
-      form.save()
-      return redirect('banking-details')
+    bank_form = BankingForm(request.POST)
+    if bank_form.is_valid():
+       bank_form.save()
+       
+  else:
+     bank_form =BankingForm()
+  bank =Banking.objects.all()
 
-  context = {'form': form}
-  return render(request, 'banking_create.html', context)
+  context = {
+     'form': bank_form,
+     'bank': bank}
+  return render(request, 'banking.html', context)
 
 
 def banking_update(request, pk):
@@ -109,14 +108,18 @@ def banking_update(request, pk):
 
 
 def expense_create(request):
-  form = ExpensesForm()
   if request.method == 'POST':
-    form = ExpensesForm(request.POST)
-    if form.is_valid():
-      form.save()
-      return redirect('banking-details')
+    expense_form = ExpensesForm(request.POST)
+    if expense_form.is_valid():
+       expense_form.save()
+       
+  else:
+       expense_form = ExpensesForm()
+  expense = Expenses.objects.all()
 
-  context = {'form': form}
+     
+  context = {'form': expense_form,
+             'expenses':expense}
   return render(request, 'expenses.html', context)
 
 
@@ -136,15 +139,17 @@ def expense_update(request, pk):
 
 
 def expBreak_create(request):
-  form = ExpBreakForm()
   if request.method == 'POST':
-    form = ExpBreakForm(request.POST)
-    if form.is_valid():
-      form.save()
-      return redirect('payment-list')
+    exp_form = ExpBreakForm(request.POST)
+    if exp_form.is_valid():
+       exp_form.save()
+  else:
+     exp_form =ExpBreakForm()
+  expbreak =Exp_break.objects.all()
 
-  context = {'form': form}
-  return render(request, 'expbreak_create.html', context)
+  context = {'form': exp_form,
+             'expbreak': expbreak}
+  return render(request, 'exp_break.html', context)
 
 
 def expbreak_update(request, pk):
@@ -177,7 +182,7 @@ def create_request_view(request):
         'form': rqst_form,
         'requests': requests
     }
-    return render(request, template_name='department.html', context=context)
+    return render(request, template_name='request.html', context=context)
 
 
 def request_update(request, pk):
@@ -194,4 +199,59 @@ def request_update(request, pk):
         
     context = {'form': rqt_form,
                'request': requests}
-    return render(request, 'department_update.html', context) 
+    return render(request, 'request_update.html', context) 
+
+
+def create_request_item_view(request):
+    if request.method == "POST":
+        item_form = RequestItemsForm(request.POST)
+
+        if item_form.is_valid():
+            item_form.save()
+
+    else:
+        item_form = RequestItemsForm()
+    items = Request_items.objects.all()
+
+    context = {
+        'form': item_form,
+        'item_request': items
+    }
+    return render(request, template_name='items.html', context=context)
+
+
+def item_request_update(request, pk):
+    item = Request_items.objects.get(id=pk)
+    rqt_form = RequestItemsForm(instance=item)
+
+    if request.method == 'POST':
+        rqt_item_form = RequestItemsForm(request.POST, instance=item)
+        if rqt_item_form.is_valid():
+           rqt_item_form.save()
+        return redirect('department-list')
+    else:
+       rqt_form = RequestItemsForm(instance=item)
+        
+    context = {'form': rqt_form,
+               'request_item': item}
+    return render(request, 'request_itemUpdate.html', context)
+
+def singUpView(request):
+    message=''
+    if request.method=="POST":
+        signup= UserCreationForm(request.POST)
+
+        if signup.is_valid():
+           
+            signup.save()
+            messages.success(request, "Product added")
+        else:
+            message ="An error occurred"
+    else:
+        signup = UserCreationForm()
+    context ={
+            'form': signup,
+            message: message
+        }
+
+    return render(request, 'registration/sign_up.html', context)

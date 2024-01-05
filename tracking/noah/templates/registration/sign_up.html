@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .form-text {
+            color: #6c757d;
+        }
+    </style>
+    <title>Stock</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <form method="POST">
+            <input type="hidden" name="csrfmiddlewaretoken"
+                value="xf1pCayy78voZRnq0OT6QfLIdLtEe7IWqyDHSoGgad6QSGSHJn71ztp9RN1p2hCA">
+
+            <div id="div_id_username" class="form-group">
+                <label for="id_username" class="requiredField">Username<span class="asteriskField">*</span></label>
+                <div>
+                    <input type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username"
+                        autofocus class="textinput textInput form-control" required id="id_username">
+                    <small id="hint_id_username" class="form-text text-muted">Required. 150 characters or fewer.
+                        Letters, digits and @/./+/-/_ only.</small>
+                </div>
+            </div>
+            <div id="div_id_password1" class="form-group">
+                <label for="id_password1" class="requiredField">Password<span class="asteriskField">*</span></label>
+                <div>
+                    <input type="password" name="password1" autocomplete="new-password"
+                        class="textinput textInput form-control" required id="id_password1">
+                    <small id="hint_id_password1" class="form-text text-muted">
+                       
+                    </small>
+                </div>
+            </div>
+            <div id="div_id_password2" class="form-group">
+                <label for="id_password2" class="requiredField">Password confirmation<span
+                        class="asteriskField">*</span></label>
+                <div>
+                    <input type="password" name="password2" autocomplete="new-password"
+                        class="textinput textInput form-control" required id="id_password2">
+                    <small id="hint_id_password2" class="form-text text-muted">Enter the same password as before,
+                        for verification.</small>
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-primary">
+
+        </form>
+    </div>
+
+</body>
+
+</html>

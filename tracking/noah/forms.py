@@ -9,7 +9,7 @@ from .models import Department, Payment, Banking, Expenses, Exp_break, Request, 
 
 class DepartmentForm(forms.ModelForm):
     class Meta:
-        Model= Department
+        model= Department
         fields= '__all__'
 
 

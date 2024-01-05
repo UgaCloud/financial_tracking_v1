@@ -1,72 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "base.html" %}
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% load static %}
 
-    <!-- Twitter -->
-    <!-- <meta name="twitter:site" content="@bootstrapdash">
-    <meta name="twitter:creator" content="@bootstrapdash">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Azia">
-    <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
-    <meta name="twitter:image" content="https://www.bootstrapdash.com/azia/img/azia-social.png"> -->
 
-    <!-- Facebook -->
-    <!-- <meta property="og:url" content="https://www.bootstrapdash.com/azia">
-    <meta property="og:title" content="Azia">
-    <meta property="og:description" content="Responsive Bootstrap 4 Dashboard Template">
+{% block title %} Home {% endblock title %}
 
-    <meta property="og:image" content="https://www.bootstrapdash.com/azia/img/azia-social.png">
-    <meta property="og:image:secure_url" content="https://www.bootstrapdash.com/azia/img/azia-social.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="600"> -->
 
-    <!-- Meta -->
-    <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
-    <meta name="author" content="BootstrapDash">    
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ ASSETS_ROOT }}/favicon.png">
+{% block content %}
 
-    <title>
-        Django Azia Dashboard - {% block title %}{% endblock %} | AppSeed
-    </title>
+    <div style="color:orange
+    ; font-style: bold; font-size: 3rem; border-bottom: 1px solid #464646;">Welcome, {{ request.user.username }}</div>
 
-    <!-- vendor css -->
-    <link href="{{ ASSETS_ROOT }}/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="{{ ASSETS_ROOT }}/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="{{ ASSETS_ROOT }}/lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="{{ ASSETS_ROOT }}/lib/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+    <br>
 
-    <!-- Page CSS Plugins goes HERE  -->
-    {% block plugin_stylesheets %}{% endblock plugin_stylesheets %}
+    <div id="container" style="position: relative; height:45vh; border: 1.2mm ridge #4e6570; border-radius: 30px;" class="align-middle table-bordered">
+        <canvas id="bar-graph"></canvas>
+    </div>
 
-    <!-- azia CSS -->
-    <link rel="stylesheet" href="{{ ASSETS_ROOT }}/css/azia.css">
+    <br>
 
-    <!-- Specific Page CSS goes HERE  -->
-    {% block stylesheets %}{% endblock stylesheets %}
+    <div class="row">
+        <div class="col-md-6">
+            <a href="#" class="btn btn-success btn-lg btn-block btn-huge">New Incoming Stock</a>
+        </div>
+        <div class="col-md-6">
+            <a href="#" class="btn btn-success btn-lg btn-block btn-huge">New Outgoing Stock</a>
+        </div>
+    </div>
 
-</head>
-<body>
+    <br>
 
-    {% include 'includes/navigation.html' %}
+    <div class="content-section">
+        <div class="row"><!-- Log on to codeastro.com for more projects -->
 
-    {% block content %}{% endblock content %}
+            <div class="col-md-6">
+                <div style="color: #4e6570; font-style: bold; font-size: 1.3em; border-bottom: 2px solid #4e6570">Expenses</div><br>
+                {% for expense in expenses %}
+                    {% if not forloop.first %}
+                        <br><div style="border-bottom: 0.5px solid #4e6570"></div><br>
+                    {% endif %}
+                    <div class="row">               
+                        <div class="col-md-9"> 
+                            Bill No: #{{ expense.id }} <br> 
+                            Spent by <b>{{ expense.department }}</b> <br>
+                            <small><i>{{ expense.time.date }}</i></small>
+                        </div>
+                        <div class="col-md-2"> <br> ${{ item.get_total_price }} <br> <a href="{% url 'sale-bill' item.billno %}">View Bill</a> </div>
+                    </div>
+                {% endfor %}
+            </div>
 
-    {% include 'includes/footer.html' %}
+            <div class="col-md-6">
+                <div style="color: #4e6570; font-style: bold; font-size: 1.3em; border-bottom: 2px solid #4e6570">Recent Incomes</div><br>
+                {% for bank in purchases %}
+                    {% if not forloop.first %}
+                        <br><div style="border-bottom: 0.5px solid #4e6570"></div><br>
+                    {% endif %}
+                    <div class="row">   <!-- Log on to codeastro.com for more projects -->            
+                        <div class="col-md-9"> 
+                            Bill No: #{{ expense.id}} <br> 
+                            Purchased by <b>{{ department.departments.name }}</b> <br>
+                            <small><i>{{ item.time.date }}</i></small>
+                        </div>
+                        <div class="col-md-2"> <br>${{ department_get_price }} <br> <a href="{% url 'department_added' department.id %}">View Bill</a> </div>
+                    </div>
+                {% endfor %}
+            </div>
 
-    {% include 'includes/scripts.html' %}
+        </div>
+    </div><!-- Log on to codeastro.com for more projects -->
 
-    <!-- Page JS Plugins goes HERE  -->
-    {% block plugin_javascripts %}{% endblock plugin_javascripts %}
+    <!-- Loading Chart JS -->
+    <script src="{% static 'js/Chart.min.js' %}"></script>  
+    <script>
+        Chart.defaults.global.defaultFontColor = '#3c3c3c';
 
-    <script src="{{ ASSETS_ROOT }}/js/azia.js"></script>
+        //configuration for the bar graph
+        var barConfig = {
+            type: 'bar',
+            data: {
+                datasets: [{
+                    backgroundColor: '#1a79a5',
+                    label: 'Stock in Inventory',
+                    data: {{ data|safe }},
+                }],
+                labels: {{ labels|safe }}
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            },
+        };
 
-    <!-- Specific Page JS goes HERE  -->
-    {% block javascripts %}{% endblock javascripts %}
 
-</body>
-</html>
+        //runs all charts on loading the webpage
+        window.onload = function() {
+            var ctx = document.getElementById('bar-graph').getContext('2d');
+            window.BarStock = new Chart(ctx, barConfig);
+        };
+
+    </script>
+
+{% endblock content %}
