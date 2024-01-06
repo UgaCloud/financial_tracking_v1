@@ -18,6 +18,7 @@
   <!-- Nucleo Icons -->
   <link href="'{% static '/assets/css/nucleo-icons.css'%}" rel="stylesheet" />
   <link href="{% static '/assets/css/nucleo-svg.css'%}" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
@@ -39,6 +40,8 @@
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{% url 'home_page' %}">Home</a></li>
                     <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{% url 'login' %}">Logout</a></li>
+                    
                 </ol>
                 <h6 class="font-weight-bolder mb-0">Dashboard</h6>
             </nav>
@@ -49,31 +52,45 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-primary rounded-pill me-2" href="{% url 'department_list' %}">
-                        <i class="fa fa-product-hunt" aria-hidden="true"></i> Department List
-                    </a>
-                </li>
+                  <a class="nav-link btn btn-primary rounded-pill me-2" href="{% url 'add_request' %}">
+                      <i class="fa fa-money" aria-hidden="true"></i> Request
+                  </a>
+              </li>
+                
                 <li class="nav-item">
                     <a class="nav-link btn btn-primary rounded-pill me-2" href="{% url 'add_payment' %}">
                         <i class="fa fa-money" aria-hidden="true"></i> Transactions
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-secondary rounded-pill me-2" href="{% url 'add_banking' %}">
-                        <i class="fa fa-stack-exchange" aria-hidden="true"></i> Banking
-                    </a>
-                </li>
+                
                 <li class="nav-item">
                     <a class="nav-link btn btn-primary rounded-pill me-2" href="{% url 'add_expenses' %}">
                         <i class="fa fa-list-ul" aria-hidden="true"></i> Expenses
                     </a>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link btn btn-primary rounded-pill me-2" href="{% url 'add_break' %}">
+                      <i class="fa fa-list-ul" aria-hidden="true"></i> Exp Break
+                  </a>
+              </li>
+                <li class="nav-item">
+                  <a class="nav-link btn btn-primary rounded-pill me-2" href="{% url 'add_item' %}">
+                      <i class="fa fa-list-ul" aria-hidden="true"></i> Item Request
+                  </a>
+              </li>
+                <li class="nav-item">
                     <a class="nav-link btn btn-primary rounded-pill me-2" href="{% url 'add_banking' %}">
                         <i class="fa fa-exchange" aria-hidden="true"></i> Banking
                     </a>
                 </li>
-                <!-- Add other top navbar links here -->
+                <li class="nav-item">
+                  <a class="nav-link text-white " href="{% url 'sign_up' %}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i class="material-icons opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1"> <i class="fa fa-users" aria-hidden="true"></i> Sign In</span>
+                  </a>
+                </li>
             </ul>
         </div>
     </nav>

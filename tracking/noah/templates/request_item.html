@@ -1,29 +1,29 @@
 <!DOCTYPE HTML>
 {% extends 'base.html' %}
-{% block title %}Department{% endblock%}
+{% block title %}Request Item{% endblock%}
 {% block content %}
 <header>
-    <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product
+    <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Item Request
 </button>
 </header>
-<table class="table table-striped">
+<table class="table table-dark">
     <thead>
         <tr>
-            <th scope="col">Department id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Price</th>
+            <th scope="col">Item id</th>
+            <th scope="col">Request</th>
+            <th scope="col">Item</th>
+            <th scope="col">Quantity</th>
           
           
         </tr>
     </thead>
    
-        {% for department in departments %}
+        {% for item in item_request %}
         <tr>
-            <td scope="row">{{department.id}}</td>
-            <td>{{department.name}}</td>
-            <td>{{department.description}}</td>
-            <td>{{department.price}}</td>
+            <td scope="row">{{item.id}}</td>
+            <td>{{item.request}}</td>
+            <td>{{item.item}}</td>
+            <td>{{item.quantity}}</td>
            
           
                 
@@ -31,8 +31,8 @@
             
             
             <td>
-                <a href="{% url 'update_department' department.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
-                {% comment "" %}<a href="{% url 'delete' department.id %}" onclick="return confirm('Are you sure you want to continue?')">{% endcomment %}
+                <a href="{% url 'update_item' item.id %}"><i class="fa fa-pencil" aria-hidden="true">edit</i></a> |
+                <a href="{% url 'deleteRequestItem' item.id %}" onclick="return confirm('Are you sure you want to continue?')">delete
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </a>
             </td>

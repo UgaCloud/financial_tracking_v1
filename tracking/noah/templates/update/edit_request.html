@@ -1,0 +1,16 @@
+<!DOCTYPE>
+{% extends 'base.html' %}
+{% block title %}Request{% endblock%}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<header>
+    <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit
+</button>
+</header>
+<h1>Edit - {{ request.id}}</h1>
+
+
+{%endblock content %}
+
+   
