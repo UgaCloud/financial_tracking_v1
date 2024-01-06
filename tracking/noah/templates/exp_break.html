@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+{% extends 'base.html' %}
+{% block title %}Department{% endblock%}
+{% block content %}
+<header>
+    <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product
+</button>
+</header>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Exp Break no.</th>
+            <th scope="col">Expense</th>
+            <th scope="col">Particular</th>
+            <th scope="col">Rate</th>
+            <th scope="col">Quantity</th>
+          
+          
+        </tr>
+    </thead>
+   
+        {% for exp in expbreak %}
+        <tr>
+            <td scope="row">{{exp.id}}</td>
+            <td>{{exp.expense}}</td>
+            <td>{{exp.particular}}</td>
+            <td>{{exp.rate}}</td>
+            <td>{{exp.quantity}}</td>
+           
+          
+                
+       
+            
+            
+            <td>
+                <a href="{% url 'edit_break' exp.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
+                {% comment "" %}<a href="{% url 'delete' department.id %}" onclick="return confirm('Are you sure you want to continue?')">{% endcomment %}
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+            </td>
+       
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

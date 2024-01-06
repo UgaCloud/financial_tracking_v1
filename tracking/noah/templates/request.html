@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+{% extends 'base.html' %}
+{% block title %}Department{% endblock%}
+{% block content %}
+<header>
+    <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product
+</button>
+</header>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Request id</th>
+            <th scope="col">Request Date</th>
+            <th scope="col">Requested by</th>
+            <th scope="col">Purpose</th>
+          
+          
+        </tr>
+    </thead>
+   
+        {% for request in requestts %}
+        <tr>
+            <td scope="row">{{request.id}}</td>
+            <td>{{request.request_date}}</td>
+            <td>{{request.requested_by}}</td>
+            <td>{{request.purpose}}</td>
+           
+          
+                
+       
+            
+            
+            <td>
+                <a href="{% url 'update_department' department.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
+                {% comment "" %}<a href="{% url 'delete' department.id %}" onclick="return confirm('Are you sure you want to continue?')">{% endcomment %}
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+            </td>
+       
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

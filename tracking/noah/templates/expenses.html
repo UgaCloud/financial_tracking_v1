@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+{% extends 'base.html' %}
+{% block title %}Department{% endblock%}
+{% block content %}
+<header>
+    <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product
+</button>
+</header>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Expense Date</th>
+            <th scope="col">Department</th>
+            <th scope="col">Purpose</th>
+            <th scope="col">Amount Received</th>
+            <th scope="col">Spent By</th>
+            <th scope="col">Date Received</th>
+            
+          
+          
+        </tr>
+    </thead>
+   
+        {% for expense in expenses %}
+        <tr>
+            <td scope="row">{{expense.id}}</td>
+            <td>{{expense.expense_date}}</td>
+            <td>{{expense.department}}</td>
+            <td>{{expense.purpose}}</td>
+            <td>{{expense.amount_recieved}}</td>
+            <td>{{expense.spent_by}}</td>
+            <td>{{expense.date_recieved}}</td>
+           
+          
+                
+       
+            
+            
+            <td>
+                <a href="{% url 'edit_expenses' expense.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a> |
+                {% comment "" %}<a href="{% url 'delete' department.id %}" onclick="return confirm('Are you sure you want to continue?')">{% endcomment %}
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+            </td>
+       
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}
