@@ -21,17 +21,17 @@
 
     <div class="row">
         <div class="col-md-6">
-            <a href="#" class="btn btn-success btn-lg btn-block btn-huge">New Incoming Stock</a>
+            <a href="#" class="btn btn-success btn-lg btn-block btn-huge">Manage Trips</a>
         </div>
         <div class="col-md-6">
-            <a href="#" class="btn btn-success btn-lg btn-block btn-huge">New Outgoing Stock</a>
+            <a href="#" class="btn btn-success btn-lg btn-block btn-huge">Net Banking</a>
         </div>
     </div>
 
     <br>
 
     <div class="content-section">
-        <div class="row"><!-- Log on to codeastro.com for more projects -->
+        <div class="row">
 
             <div class="col-md-6">
                 <div style="color: #4e6570; font-style: bold; font-size: 1.3em; border-bottom: 2px solid #4e6570">Expenses</div><br>
@@ -56,7 +56,7 @@
                     {% if not forloop.first %}
                         <br><div style="border-bottom: 0.5px solid #4e6570"></div><br>
                     {% endif %}
-                    <div class="row">   <!-- Log on to codeastro.com for more projects -->            
+                    <div class="row">              
                         <div class="col-md-9"> 
                             Bill No: #{{ expense.id}} <br> 
                             Purchased by <b>{{ department.departments.name }}</b> <br>
@@ -68,9 +68,9 @@
             </div>
 
         </div>
-    </div><!-- Log on to codeastro.com for more projects -->
+    </div>
 
-    <!-- Loading Chart JS -->
+    
     <script src="{% static 'js/Chart.min.js' %}"></script>  
     <script>
         Chart.defaults.global.defaultFontColor = '#3c3c3c';

@@ -8,13 +8,14 @@ class Department(models.Model):
     name = models.CharField(verbose_name='Department Name',max_length=50)
     description = models.TextField(max_length=50,null=True,blank=True)
     price = models.IntegerField()
+    
 
     class Meta:
         verbose_name=('Department')
         verbose_name_plural=('Departments')
 
-        def __str__(self):
-            self.name
+    def __str__(self):
+        return self.name
 
         
         
@@ -35,8 +36,8 @@ class Payment(models.Model):
         verbose_name=('Payment')
         verbose_name_plural=('Payments')
 
-        def __str__(self):
-            self.payment_purpose
+    def __str__(self):
+        return self.payment_purpose
 
         
 
@@ -57,8 +58,8 @@ class Banking(models.Model):
         verbose_name=('Banking')
         verbose_name_plural=('Bankings')
 
-        def __str__(self):
-            self.account_no
+    def __str__(self):
+        return self.account_no
 
         
         
@@ -75,8 +76,8 @@ class Expenses(models.Model):
         verbose_name=('Expense')
         verbose_name_plural=('Expenses')
 
-        def __str__(self):
-            self.department
+    def __str__(self):
+        return f"{self.expense_date} - {self.department} - {self.purpose}"
 
         
 
@@ -90,8 +91,8 @@ class Exp_break(models.Model):
         verbose_name=('Exp_break')
         verbose_name_plural=('Exp_breaks')
 
-        def __str__(self):
-            self.particular
+    def __str__(self):
+        return self.particular
 
         
 
@@ -104,8 +105,8 @@ class Request(models.Model):
         verbose_name=('Request')
         verbose_name_plural=('Requests')
 
-        def __str__(self):
-            self.particular
+    def __str__(self):
+        return self.purpose
 
      
 
@@ -118,8 +119,8 @@ class Request_items(models.Model):
         verbose_name=('Request_item')
         verbose_name_plural=('Request_items')
 
-        def __str__(self):
-            self.particular
+    def __str__(self):
+        return self.particular
 
        
 
