@@ -76,26 +76,29 @@ def payment_update(request, pay_id):
      form = PaymentForm(request.POST, instance=payment)
      if form.is_valid():
        form.save()
-       return redirect('payment-list')
+       return redirect(payment_create)
 
   context = {'form': form}
   return render(request, 'update/edit_payment.html', context)
 
 @login_required
 def banking_create(request):
-  if request.method == 'POST':
-    bank_form = BankingForm(request.POST)
-    if bank_form.is_valid():
-        bank_form.save()
-  else:
-    bank_form =BankingForm()
-  bank =Banking.objects.all()
+    if request.method == 'POST':
+        bank_form = BankingForm(request.POST)
+        if bank_form.is_valid():
+            bank_form.save()
+            return redirect('banking_create')  # Redirect to the same view after successful form submission
+    else:
+        bank_form = BankingForm()
+        
+    banks = Banking.objects.all()
     
-  context = {
-     'form': bank_form,
-     'banks': bank
+    context = {
+        'form': bank_form,
+        'banks': banks
     }
-  return render(request, template_name ='banking.html', context = context)
+    
+    return render(request, 'banking.html', context)
 
 @login_required
 def banking_update(request, bank_id):
@@ -238,7 +241,7 @@ def item_request_update(request, it_id):
         rqt_item_form = RequestItemsForm(request.POST, instance=item)
         if rqt_item_form.is_valid():
            rqt_item_form.save()
-        return redirect('department-list')
+        return redirect(create_request_item_view)
     else:
        rqt_form = RequestItemsForm(instance=item)
         

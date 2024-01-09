@@ -1,14 +1,23 @@
 <!DOCTYPE>
 {% extends 'base.html' %}
+{% load static %}
+
 {% block title %}Transactions{% endblock%}
 {% block content %}
 {% load crispy_forms_tags %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
 
 <header>
-    <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit
-</button>
+    <h1>Edit - {{ pay.id}}</h1>
 </header>
-<h1>Edit - {{ pay.id}}</h1>
+{% csrf_token%}
+<div class="container">
+{{form|crispy}}
+<input type ="submit" class="btn btn-primary">
+
+</div>
+
 
 
 {%endblock content %}

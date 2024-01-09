@@ -158,6 +158,18 @@
           {% csrf_token%}
           <div class="container">
         {{form|crispy}}
+        
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Error:</strong>
+            {% for field, errors in form.errors.items %}
+                {{ field|title }}: {{ errors.0 }}<br>
+            {% endfor %}
+        </div>
+    {% endif %}
+   
+        
+       
       </div>
     </div>
       <div class="modal-footer">

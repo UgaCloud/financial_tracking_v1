@@ -7,8 +7,16 @@
 <header>
     <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit
 </button>
+
+</div>
 </header>
 <h1>Edit - {{ bank.id}}</h1>
+<form method ="POST">
+{% csrf_token%}
+<div class="container">
+{{form|crispy}}
+</form>
+
 
 
 {%endblock content %}
