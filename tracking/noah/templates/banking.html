@@ -1,7 +1,11 @@
 <!DOCTYPE HTML>
 {% extends 'base.html' %}
+{%load static %}
+
 {% block title %}Banking{% endblock%}
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
 <header>
     <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add
 </button>
@@ -46,11 +50,7 @@
             <td>{{bank.file}}</td>
             <td>{{bank.banked_by}}</td>
            
-          
-                
-       
-            
-            
+           
             <td>
                 <a href="{% url 'edit_banking' bank.id %}"><i class="fa fa-pencil" aria-hidden="true">edit</i></a> |
                 <a href="{% url 'delete_banking' bank.id %}" onclick="return confirm('Are you sure you want to continue?')">delete
