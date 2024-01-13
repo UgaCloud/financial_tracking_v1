@@ -31,49 +31,71 @@
 </head>
 
 <body class="g-sidenav-show bg-gray-200">
-  
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+        <div class="container-fluid py-1 px-3">
+            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon mt-2 mb-2"></span>
+            </button>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{% url 'home_page' %}">Home</a></li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{% url 'login' %}">Logout</a></li>
+                    
+                </ol>
+                <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+            </nav>
+            <ul class="navbar-nav align-items-center ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary rounded-pill me-2" href="{% url 'department_added' %}">
+                        <i class="fa fa-area-chart" aria-hidden="true"></i> Department
+                    </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link btn btn-primary rounded-pill me-2" href="{% url 'add_request' %}">
+                      <i class="fa fa-money" aria-hidden="true"></i> Request
+                  </a>
+              </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary rounded-pill me-2" href="{% url 'add_payment' %}">
+                        <i class="fa fa-money" aria-hidden="true"></i> Transactions
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary rounded-pill me-2" href="{% url 'add_expenses' %}">
+                        <i class="fa fa-list-ul" aria-hidden="true"></i> Expenses
+                    </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link btn btn-primary rounded-pill me-2" href="{% url 'add_break' %}">
+                      <i class="fa fa-list-ul" aria-hidden="true"></i> Exp Break
+                  </a>
+              </li>
+                <li class="nav-item">
+                  <a class="nav-link btn btn-primary rounded-pill me-2" href="{% url 'add_item' %}">
+                      <i class="fa fa-list-ul" aria-hidden="true"></i> Item Request
+                  </a>
+              </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary rounded-pill me-2" href="{% url 'add_banking' %}">
+                        <i class="fa fa-exchange" aria-hidden="true"></i> Banking
+                    </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white " href="{% url 'sign_up' %}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i class="material-icons opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1"> <i class="fa fa-users" aria-hidden="true"></i> Sign In</span>
+                  </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
     <!-- The rest of your content here -->
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Logo</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'home_page' %}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'department_added' %}">Department</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'add_payment' %}">Transactions</a>
-            </li>  
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'add_request' %}">Request</a>
-            </li>  
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Request</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'add_request' %}">Add Request</a></li>
-                <li><a class="dropdown-item" href="{% url 'add_item' %}">Item Request</a></li>
-                
-              </ul>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Request</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'add_expenses' %}">Add Request</a></li>
-                <li><a class="dropdown-item" href="{% url 'add_item' %}">Item Request</a></li>
-                <li><a class="dropdown-item" href="#">A third link</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
 </body>
 
     <header>

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'noah',
     'crispy_forms',
     'widget_tweaks',
+    'crispy_bootstrap4',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'    
 MIDDLEWARE = [

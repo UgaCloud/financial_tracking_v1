@@ -2,8 +2,18 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+from django.contrib.auth.forms import AuthenticationForm 
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required,user_passes_test
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 # Create your models here.
+# @staff_member_required(login_url='signup')
+# @login_required(login_url='login')
+# @user_passes_test(lambda u: u.is_staff, login_url='signup')
+# @user_passes_test(lambda u: u.is_superuser, login_url='signup')
+# @user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='login')  
 class Department(models.Model):
     name = models.CharField(verbose_name='Department Name',max_length=50)
     description = models.TextField(max_length=50,null=True,blank=True)

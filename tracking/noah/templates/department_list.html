@@ -3,12 +3,13 @@
 {% block title %}Department{% endblock%}
 {% block content %}
 {%load static %}
+
 <header>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> -->
     <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add
 </button>
 </header>
-<table class="table table-dark">
+<table id="myTable" class="display compact cell-border table table-striped" cellspacing="0" width="100%">
     <thead>
         <tr>
             <th scope="col">Department id</th>
@@ -43,5 +44,6 @@
         {% endfor %}
     </tbody>
 </table>
+
 
 {% endblock content %}

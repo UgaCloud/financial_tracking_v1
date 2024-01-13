@@ -1,21 +1,30 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect,reverse,HttpResponseRedirect
+
 
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Department, Payment, Banking, Expenses, Exp_break, Request, Request_items
 from .forms import DepartmentForm, PaymentForm, BankingForm, ExpensesForm, ExpBreakForm, RequestForm, RequestItemsForm
+
+
+from django.contrib.auth.forms import AuthenticationForm 
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required,user_passes_test
+from django.contrib.admin.views.decorators import staff_member_required
+
+
 @login_required
 def IndexView(request):
     return render(request, 'index.html')
 
 
-@login_required
+@login_required 
 def department_list(request):
     departments = Department.objects.all()
     return render(request, 'department_list.html', {'departments': departments})
 
-@login_required
+@login_required   
 def create_department_view(request):
     if request.method == "POST":
         dpt_form = DepartmentForm(request.POST)
@@ -36,6 +45,7 @@ def create_department_view(request):
 
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')
 def department_update(request, dpt_id):
     department = Department.objects.get(id=dpt_id)
     form = DepartmentForm(instance=department)
@@ -44,14 +54,14 @@ def department_update(request, dpt_id):
         form = DepartmentForm(request.POST, instance=department)
         if form.is_valid():
            form.save()
-        return redirect(create_department_view)
+           return redirect(create_department_view)
     else:
        form = DepartmentForm(instance=department)
         
     context = {'form': form}
     return render(request, 'update/edit_department.html', context) 
 
-@login_required
+@login_required 
 def payment_create(request):
  
     if request.method == 'POST':
@@ -68,6 +78,7 @@ def payment_create(request):
 
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')  
 def payment_update(request, pay_id):
   payment = Payment.objects.get(id=pay_id)
   form = PaymentForm(instance=payment)
@@ -76,7 +87,7 @@ def payment_update(request, pay_id):
      form = PaymentForm(request.POST, instance=payment)
      if form.is_valid():
        form.save()
-       return redirect('payment-list')
+       return redirect(payment_create)
 
   context = {'form': form}
   return render(request, 'update/edit_payment.html', context)
@@ -84,7 +95,7 @@ def payment_update(request, pay_id):
 @login_required
 def banking_create(request):
   if request.method == 'POST':
-    bank_form = BankingForm(request.POST)
+    bank_form = BankingForm(request.POST,request.FILES)
     if bank_form.is_valid():
         bank_form.save()
   else:
@@ -98,21 +109,22 @@ def banking_create(request):
   return render(request, template_name ='banking.html', context = context)
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')  
 def banking_update(request, bank_id):
   banking = Banking.objects.get(id=bank_id)
   form = BankingForm(instance=banking)
 
   if request.method == 'POST':
-     form = BankingForm(request.POST, instance=banking)
-     if form.is_valid():
-       form.save()
-       return redirect(banking_update)
+    form = BankingForm(request.POST, instance=banking)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse(banking_create))
 
   context = {'form': form}
   return render(request, 'update/edit_banking.html', context)
 
 
-@login_required
+@login_required  
 def expense_create(request):
   if request.method == 'POST':
     expense_form = ExpensesForm(request.POST)
@@ -130,6 +142,7 @@ def expense_create(request):
 
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')  
 def expense_update(request, exp_id):
     expense = Expenses.objects.get(id=exp_id)
     form = ExpensesForm(instance=expense)
@@ -145,7 +158,7 @@ def expense_update(request, exp_id):
     context = {'form': form}
     return render(request, 'update/edit_expense.html', context)
 
-@login_required
+@login_required  
 def expBreak_create(request):
   if request.method == 'POST':
     exp_form = ExpBreakForm(request.POST)
@@ -160,6 +173,7 @@ def expBreak_create(request):
   return render(request, 'exp_break.html', context)
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')  
 def expbreak_update(request, bk_id):
     expbreak = Exp_break.objects.get(id=bk_id)
     form =ExpBreakForm(instance=expbreak)
@@ -195,6 +209,7 @@ def create_request_view(request):
     return render(request, template_name='request.html', context=context)
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')  
 def request_update(request, rqst_id):
     requests = Request.objects.get(id=rqst_id)
     rqt_form = RequestForm(instance=requests)
@@ -211,7 +226,7 @@ def request_update(request, rqst_id):
                'request': requests}
     return render(request, 'update/edit_request.html', context) 
 
-@login_required
+@login_required 
 def create_request_item_view(request):
     if request.method == "POST":
         item_form = RequestItemsForm(request.POST)
@@ -230,6 +245,7 @@ def create_request_item_view(request):
     return render(request, template_name='request_item.html', context=context)
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')  
 def item_request_update(request, it_id):
     item = Request_items.objects.get(id=it_id)
     rqt_form = RequestItemsForm(instance=item)
@@ -248,6 +264,7 @@ def item_request_update(request, it_id):
 
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')
 def delete_department_view(request, dpt_id):
     dpart =Department.objects.get(id=dpt_id)
 
@@ -257,6 +274,7 @@ def delete_department_view(request, dpt_id):
 
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')  
 def delete_payment_view(request, pay_id):
     payment =Payment.objects.get(id=pay_id)
 
@@ -266,6 +284,7 @@ def delete_payment_view(request, pay_id):
 
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')
 def delete_bank_view(request, bank_id):
     bank =Banking.objects.get(id=bank_id)
 
@@ -275,6 +294,7 @@ def delete_bank_view(request, bank_id):
 
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')
 def delete_expense_view(request, exp_id):
     expense =Expenses.objects.get(id=exp_id)
 
@@ -285,6 +305,7 @@ def delete_expense_view(request, exp_id):
 
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')
 def delete_exp_break_view(request, bk_id):
     exp_break =Exp_break.objects.get(id=bk_id)
 
@@ -294,6 +315,7 @@ def delete_exp_break_view(request, bk_id):
 
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')
 def delete_request_view(request, rqst_id):
     req =Request.objects.get(id=rqst_id)
 
@@ -303,6 +325,7 @@ def delete_request_view(request, rqst_id):
 
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')
 def delete_request_item_view(request, it_id):
     req_item= Request_items.objects.get(id=it_id)
 
@@ -312,6 +335,7 @@ def delete_request_item_view(request, it_id):
 
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='department').exists(),login_url='home_page')
 def singUpView(request):
     message=''
     if request.method=="POST":
